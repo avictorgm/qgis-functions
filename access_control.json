@@ -1,0 +1,63 @@
+{
+  "access_control": {
+    "enabled": true,
+    "default_access": "deny",
+    "users": {
+      "admin_user": {
+        "name": "Administrator",
+        "email": "admin@example.com",
+        "access_level": "admin",
+        "allowed_folders": ["*"],
+        "denied_functions": []
+      },
+      "john_doe": {
+        "name": "John Doe",
+        "email": "john@example.com",
+        "access_level": "user",
+        "allowed_folders": ["utilities", "data"],
+        "denied_functions": ["delete_all_layers", "modify_database"]
+      },
+      "jane_smith": {
+        "name": "Jane Smith",
+        "email": "jane@example.com",
+        "access_level": "analyst",
+        "allowed_folders": ["analysis", "cartography", "utilities"],
+        "denied_functions": ["export_excel"]
+      },
+      "contractor_01": {
+        "name": "External Contractor",
+        "email": "contractor@external.com",
+        "access_level": "limited",
+        "allowed_folders": ["utilities"],
+        "allowed_functions": ["zoom_active_layer", "count_features"],
+        "denied_functions": ["*"]
+      }
+    },
+    "groups": {
+      "analysts": {
+        "members": ["jane_smith", "john_doe"],
+        "allowed_folders": ["analysis"],
+        "additional_functions": ["advanced_statistics"]
+      },
+      "managers": {
+        "members": ["admin_user"],
+        "allowed_folders": ["*"],
+        "denied_functions": []
+      }
+    },
+    "tokens": {
+      "tk_admin_2024": {
+        "user": "admin_user",
+        "expires": "2025-12-31"
+      },
+      "tk_john_abc123": {
+        "user": "john_doe",
+        "expires": "2024-12-31"
+      },
+      "tk_jane_xyz789": {
+        "user": "jane_smith",
+        "expires": "2024-12-31"
+      }
+    }
+  }
+}
