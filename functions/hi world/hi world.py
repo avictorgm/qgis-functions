@@ -1,23 +1,15 @@
-#!/usr/bin/env python3
-import tkinter as tk
-from tkinter import ttk
+from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.core import QgsExpression, QgsExpressionContext, QgsExpressionContextUtils
 
-def show_popup():
-    # Crear ventana emergente
-    popup = tk.Toplevel()
-    popup.title("Saludo")
-    popup.geometry("200x80")
-    popup.resizable(False, False)
+# Crear contexto de expresión (con el proyecto actual)
+context = QgsExpressionContext()
+context.appendScope(QgsExpressionContextUtils.globalScope())
 
-    # Etiqueta
-    label = ttk.Label(popup, text="Hi World", font=("Helvetica", 16))
-    label.pack(expand=True)
+# Definir la expresión
+expr = QgsExpression("@user_full_name")
 
-    # Botón para cerrar
-    ttk.Button(popup, text="OK", command=popup.destroy).pack(pady=5)
+# Evaluarla
+user_name = expr.evaluate(context)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.withdraw()          # ocultar ventana principal
-    show_popup()
-    root.mainloop()
+# Mostrar en ventana emergente
+QMessageBox.information(None, "Usuario actual", f"Usuario: {user_name}")
